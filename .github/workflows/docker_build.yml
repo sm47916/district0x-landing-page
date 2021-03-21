@@ -23,7 +23,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPOSITORY: district0x-landing-page
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${GITHUB_SHA::8}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker-builds/Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
