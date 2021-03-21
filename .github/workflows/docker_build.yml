@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - test_build
+
+name: build and push image to ECR
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: kciter/aws-ecr-action@master
+      with:
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        region: ${{ secrets.AWS_REGION }}
+        repo: "district0x-landing-page"
+        tags: latest,${{ github.sha }}
+        create_repo: false
+        set_repo_policy: false
